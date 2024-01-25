@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { Card, Container } from "react-bootstrap";
 // import Button from "react-bootstrap/Button";
 
-import axios from "axios";
 import SAlert from "../../components/Alert";
-import { useNavigate, Navigate } from "react-router-dom";
-import { config } from "../../configs";
+import { useNavigate } from "react-router-dom";
+import { postData } from "../../utils/fetch";
 import SForm from "./form";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../redux/auth/actions";
 
 function PageSignin() {
-  const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
@@ -31,17 +33,16 @@ function PageSignin() {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post(
-        `${config.api_host_dev}/cms/auth/signin`,
-        form
-      );
+      const res = await postData(`/cms/auth/signin`, form);
+
+      dispatch(userLogin(res.data.data.token, res.data.data.role));
 
       // const res = await axios.post(
       //   "http://localhost:9000/api/v1/cms/auth/signin",
       //   form
       // );
       // console.log(res.data.data.token);
-      localStorage.setItem("token", res.data.data.token);
+
       setIsLoading(false);
       navigate("/");
     } catch (err) {
@@ -53,7 +54,7 @@ function PageSignin() {
       });
     }
   };
-  if (token) return <Navigate to="/" replace={true} />;
+
   return (
     <Container md={12}>
       <div className="m-auto" style={{ width: "50" }}>
