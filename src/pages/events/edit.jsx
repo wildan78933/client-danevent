@@ -241,7 +241,7 @@ function EventsCreate() {
       <BreadCrumb
         textSecound={"Events"}
         urlSecound={"/events"}
-        textThird="Create"
+        textThird="Edit"
       />
       {alert.status && <Alert type={alert.type} message={alert.message} />}
       <Form

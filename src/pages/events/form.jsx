@@ -100,8 +100,8 @@ export default function EventsForm({
       <Form.Label>Key Point</Form.Label>
       <Row>
         {form.keyPoint.map((key, index) => (
-          <Col sm={6}>
-            <InputGroup className="mb-3" key={index}>
+          <Col sm={6} key={index}>
+            <InputGroup className="mb-3">
               <FormControl
                 placeholder="Masukan keypoint"
                 value={key}
@@ -166,6 +166,60 @@ export default function EventsForm({
       <Form.Label>Tiket</Form.Label>
 
       {form.tickets.map((tic, index) => (
+        <Row key={index}>
+          <Col sm={6}>
+            <TextInputWithLabel
+              placeholder={"Masukkan tipe tiket"}
+              label={"Type"}
+              name="type"
+              value={tic.type}
+              type="text"
+              onChange={(e) => handleChangeTicket(e, index)}
+            />
+          </Col>
+          <Col sm={6}>
+            <TextInputWithLabel
+              placeholder={"Masukkan Harga"}
+              label={"Harga"}
+              name="price"
+              value={tic.price}
+              type="number"
+              onChange={(e) => handleChangeTicket(e, index)}
+            />
+          </Col>
+          <Col sm={6}>
+            <TextInputWithLabel
+              placeholder={"Masukkan tipe tiket"}
+              label={"Stock"}
+              name="stock"
+              value={tic.stock}
+              type="number"
+              onChange={(e) => handleChangeTicket(e, index)}
+            />
+          </Col>
+          <Col sm={index !== 0 ? 5 : 6}>
+            <TextInputWithLabel
+              placeholder={"Masukkan status"}
+              label={"Status"}
+              name="status"
+              value={tic.status}
+              type="text"
+              onChange={(e) => handleChangeTicket(e, index)}
+            />
+          </Col>
+          {index !== 0 && (
+            <Col
+              sm={1}
+              className="d-flex justify-content-end align-items-center"
+            >
+              <CloseButton onClick={() => handleMinusTicket(index)} />
+            </Col>
+          )}
+        </Row>
+      ))}
+
+      {/* code lama bawaan */}
+      {/*  {form.tickets.map((tic, index) => (
         <Row>
           <Col sm={6}>
             <TextInputWithLabel
@@ -216,7 +270,7 @@ export default function EventsForm({
             </Col>
           )}
         </Row>
-      ))}
+      ))} */}
       <div className="mb-3">
         <Button variant="success" action={handlePlusTicket} size="sm">
           Tambah Ticket

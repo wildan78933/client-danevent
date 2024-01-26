@@ -33,8 +33,9 @@ function OrderPage() {
   return (
     <Container className="mt-3">
       <BreadCrumb textSecound={"orders"} />
-      {/* <Row>
+      <Row>
         <Col
+          sm={4}
           className="cursor-pointer position-relative"
           onClick={() => setIsShowed(true)}
         >
@@ -49,9 +50,9 @@ function OrderPage() {
             ""
           )}
         </Col>
-        <Col></Col>
-        <Col></Col>
-      </Row> */}
+        {/* <Col></Col>
+        <Col></Col> */}
+      </Row>
 
       {notif.status && (
         <AlertMessage type={notif.typeNotif} message={notif.message} />
