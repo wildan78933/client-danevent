@@ -32,24 +32,25 @@ function PageSignin() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    try {
-      const res = await postData(`/cms/auth/signin`, form);
+    const res = await postData(`/cms/auth/signin`, form);
 
-      dispatch(userLogin(res.data.data.token, res.data.data.role));
-
-      // const res = await axios.post(
-      //   "http://localhost:9000/api/v1/cms/auth/signin",
-      //   form
-      // );
-      // console.log(res.data.data.token);
+    if (res?.data?.data) {
+      dispatch(
+        userLogin(
+          res.data.data.token,
+          res.data.data.role,
+          res.data.data.email,
+          res.data.data.refreshToken
+        )
+      );
 
       setIsLoading(false);
       navigate("/");
-    } catch (err) {
+    } else {
       setIsLoading(false);
       setAlert({
         status: true,
-        message: err?.response?.data?.msg ?? "internal server error",
+        message: res?.response?.data?.msg ?? "internal server error",
         type: "danger",
       });
     }
